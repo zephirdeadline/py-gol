@@ -57,13 +57,34 @@ def get_neibourgs(x, y):
             return 0
 
 
-for i in range(20):
-    new_universe = deepcopy(universe)
-    for b, y in enumerate(universe):
-        for a, x in enumerate(y):
-            new_universe[b][a] = get_neibourgs(a, b)
 
-    universe = deepcopy(new_universe)
-    plt.imshow(universe, cmap='binary')
-    plt.show()
-    time.sleep(0.25)
+from tkinter import *
+
+master = Tk()
+
+w = Canvas(master, width=10*len(universe[0]), height=10*len(universe))
+w.pack()
+
+
+def start():
+    print('start')
+    for i in range(20):
+        global universe
+        new_universe = deepcopy(universe)
+        for b, y in enumerate(universe):
+            for a, x in enumerate(y):
+                new_universe[b][a] = get_neibourgs(a, b)
+
+        universe = deepcopy(new_universe)
+
+        for b, y in enumerate(universe):
+            for a, x in enumerate(y):
+                w.create_rectangle(10*a, 10*b, 10, 10, fill='white' if x == 1 else 'black')
+
+        time.sleep(0.25)
+
+w.focus_set()
+w.bind('Enter', start)
+
+mainloop()
+
