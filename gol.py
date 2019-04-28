@@ -79,12 +79,12 @@ def start():
 
         for b, y in enumerate(universe):
             for a, x in enumerate(y):
-                w.create_rectangle(10*a, 10*b, 10, 10, fill='white' if x == 1 else 'black')
+                w.create_rectangle(10*a, 10*b, 10, 10, fill='red' if x == 1 else 'yellow')
 
         time.sleep(0.25)
 
 w.focus_set()
-w.bind('Enter', start)
+master.bind_all('f', lambda event: start)
 
-mainloop()
+master.mainloop()
 
